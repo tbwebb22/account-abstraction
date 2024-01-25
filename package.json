@@ -1,36 +1,19 @@
 {
-  "name": "account-abstraction",
+  "name": "account-kit-test",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "An Example Using Account Kit",
+  "main": "index.ts",
   "type": "module",
-  "license": "AGPL-version-3.0",
-  "private": false,
-  "engines": {
-    "node": ">= 14.0.0",
-    "npm": ">= 6.0.0"
-  },
-  "homepage": "",
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
-  "bugs": "",
-  "keywords": [],
-  "contributors": [],
-  "scripts": {
-    "dev": "",
-    "test": ""
-  },
+  "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.11.6",
-    "typescript": "^5.3.3"
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@alchemy/aa-accounts": "^2.3.0",
-    "@alchemy/aa-alchemy": "^2.3.0",
-    "@alchemy/aa-core": "^2.3.0",
+    "@alchemy/aa-accounts": "^*",
+    "@alchemy/aa-alchemy": "^*",
+    "@alchemy/aa-core": "^*",
     "dotenv": "^16.4.1",
-    "viem": "^2.5.0"
+    "viem": "^1.21.4"
   }
 }

@@ -10,25 +10,24 @@ import {
   
   const chain = sepolia;
 
-  const apiKey = process.env.ALCHEMY_API_KEY;
+  const apiKey = process.env.ALCHEMY_API_KEY || "";
   const PRIVATE_KEY = process.env.PRIVATE_KEY as Hex;
 
   const owner = LocalAccountSigner.privateKeyToAccountSigner(PRIVATE_KEY);
   
-//   Create a provider to send user operations from your smart account
+  // Create a provider to send user operations from your smart account
   const provider = new AlchemyProvider({
-    apiKey: process.env.ALCHEMY_API_KEY,
-    chain: sepolia,
-  });
-//   }).connect(
-//     (rpcClient) =>
-//       new LightSmartContractAccount({
-//         rpcClient,
-//         owner,
-//         chain,
-//         factoryAddress: getDefaultLightAccountFactoryAddress(chain),
-//       })
-//   );
+    apiKey,
+    chain,
+  }).connect(
+    (rpcClient) =>
+      new LightSmartContractAccount({
+        rpcClient,
+        owner,
+        chain,
+        factoryAddress: getDefaultLightAccountFactoryAddress(chain),
+      })
+  );
   
   (async () => {
     // Fund your account address with ETH to send for the user operations
