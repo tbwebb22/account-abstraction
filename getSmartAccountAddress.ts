@@ -9,16 +9,13 @@ import {
   dotenv.config();
   
   const chain = sepolia;
-
   const apiKey = process.env.ALCHEMY_API_KEY || "";
-  const PRIVATE_KEY = process.env.PRIVATE_KEY as Hex;
-
-  const owner = LocalAccountSigner.privateKeyToAccountSigner(PRIVATE_KEY);
+  const owner = LocalAccountSigner.privateKeyToAccountSigner(process.env.SEPOLIA_PRIVATE_KEY as Hex);
   
   // Create a provider to send user operations from your smart account
   const provider = new AlchemyProvider({
     apiKey,
-    chain,
+    chain: sepolia,
   }).connect(
     (rpcClient) =>
       new LightSmartContractAccount({
