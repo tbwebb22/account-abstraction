@@ -1,7 +1,7 @@
 {
   "name": "account-abstraction",
   "version": "1.0.0",
-  "description": "Account abstraction (EIP-4337) implemented using Alchemy Account Kit",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "license": "AGPL-version-3.0",
@@ -15,17 +15,22 @@
     "type": "git",
     "url": ""
   },
+  "bugs": "",
+  "keywords": [],
+  "contributors": [],
   "scripts": {
     "dev": "",
     "test": ""
   },
   "devDependencies": {
+    "@types/node": "^20.11.6",
     "typescript": "^5.3.3"
   },
   "dependencies": {
     "@alchemy/aa-accounts": "^2.3.0",
     "@alchemy/aa-alchemy": "^2.3.0",
     "@alchemy/aa-core": "^2.3.0",
+    "dotenv": "^16.4.1",
     "viem": "^2.5.0"
   }
 }
