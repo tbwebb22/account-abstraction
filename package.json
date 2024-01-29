@@ -13,6 +13,7 @@
     "@alchemy/aa-accounts": "^*",
     "@alchemy/aa-alchemy": "^*",
     "@alchemy/aa-core": "^*",
+    "alchemy-sdk": "^3.1.2",
     "dotenv": "^16.4.1",
     "viem": "^1.21.4"
   }
