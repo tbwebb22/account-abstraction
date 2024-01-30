@@ -6,15 +6,18 @@ import {
   import { Address, LocalAccountSigner, type Hex } from "@alchemy/aa-core";
   import { sepolia } from "viem/chains";
   import * as dotenv from 'dotenv';
+import { encodeFunctionData } from "viem";
+import { Utils } from "alchemy-sdk";
   dotenv.config();
   
   const chain = sepolia;
   const apiKey = process.env.ALCHEMY_API_KEY || "";
   const owner = LocalAccountSigner.privateKeyToAccountSigner(process.env.SEPOLIA_PRIVATE_KEY as Hex);
     
+  const wethAddress = "0x7b79995e5f793a07bc00c21412e50ecae098e7f9" as Address;
+
   // Create a provider to send user operations from your smart account
   const provider = new AlchemyProvider({
-    // get your Alchemy API key at https://dashboard.alchemy.com
     apiKey,
     chain,
   }).connect(
@@ -29,17 +32,29 @@ import {
   
   
   (async () => {
-    // Fund your account address with ETH to send for the user operations
-    // (e.g. Get Sepolia ETH at https://sepoliafaucet.com)
     console.log("Smart Account Address: ", await provider.getAddress()); // Log the smart account address
   
-    const vitalikAddress =
-      "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" as Address;
-    // Send a user operation from your smart account to Vitalik that does nothing
+    // Build the WETH ABI, we only need the deposit function
+    const wethAbi = [
+        { 
+            inputs:[],
+            name: "deposit",
+            outputs: [],
+            stateMutability: "payable",
+            type: "function",
+        }
+    ];
+
+    const wethDepositCalldata = encodeFunctionData({
+        abi: wethAbi,
+        functionName: "deposit",
+    });
+
+    // Send a user operation to the Wrapped Ether contract to deposit ETH in exchange for WETH
     const { hash: uoHash } = await provider.sendUserOperation({
-      target: vitalikAddress, // The desired target contract address
-      data: "0x", // The desired call data
-      value: 0n, // (Optional) value to send the target contract address
+      target: wethAddress, // The desired target contract address
+      data: wethDepositCalldata, // The desired call data
+      value: Utils.parseEther("0.001").toBigInt(), // (Optional) value to send the target contract address
     });
   
     console.log("UserOperation Hash: ", uoHash); // Log the user operation hash
