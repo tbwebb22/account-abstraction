@@ -11,11 +11,10 @@ import { Utils } from "alchemy-sdk";
   dotenv.config();
   
   const chain = sepolia;
+  const sepoliaWethAddress = "0x7b79995e5f793a07bc00c21412e50ecae098e7f9" as Address;
   const apiKey = process.env.ALCHEMY_API_KEY || "";
   const owner = LocalAccountSigner.privateKeyToAccountSigner(process.env.SEPOLIA_PRIVATE_KEY as Hex);
     
-  const wethAddress = "0x7b79995e5f793a07bc00c21412e50ecae098e7f9" as Address;
-
   // Create a provider to send user operations from your smart account
   const provider = new AlchemyProvider({
     apiKey,
@@ -52,7 +51,7 @@ import { Utils } from "alchemy-sdk";
 
     // Send a user operation to the Wrapped Ether contract to deposit ETH in exchange for WETH
     const { hash: uoHash } = await provider.sendUserOperation({
-      target: wethAddress, // The desired target contract address
+      target: sepoliaWethAddress, // The desired target contract address
       data: wethDepositCalldata, // The desired call data
       value: Utils.parseEther("0.001").toBigInt(), // (Optional) value to send the target contract address
     });

@@ -13,7 +13,7 @@ const chain = sepolia;
 const apiKey = process.env.ALCHEMY_API_KEY || "";
 const owner = LocalAccountSigner.privateKeyToAccountSigner(process.env.SEPOLIA_PRIVATE_KEY as Hex);
 
-// Create a provider to send user operations from your smart account
+// Create a provider so we can get the address the smart account will eventually be deployed to
 const provider = new AlchemyProvider({
   apiKey,
   chain: sepolia,
@@ -33,7 +33,7 @@ const settings = {
 };
 const alchemy = new Alchemy(settings);
 
-let wallet = new Wallet(process.env.SEPOLIA_PRIVATE_KEY || "");
+const wallet = new Wallet(process.env.SEPOLIA_PRIVATE_KEY || "");
 
 async function main() {
   const nonce = await alchemy.core.getTransactionCount(
@@ -41,7 +41,7 @@ async function main() {
     "latest"
   );
 
-  // Create tx to send 0.1 Sepolia Ether to the address
+  // Create tx to send 0.1 Sepolia ETH to the address
   // our smart account will end up being deployed to
   let transaction = {
     to: await provider.getAddress(),
